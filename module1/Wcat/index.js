@@ -128,43 +128,39 @@ function addSequence(content){
     return string;
 }
 
-function addSequencefornonempty(content){
-    let contentArr = content.split("\n");
-    let string = "";
-    let linenum = 1;
-    for(let i=0;i<contentArr.length;i++){
-        if(contentArr[i].length > 0){
-            string += linenum +" "+ contentArr[i] + "\n";
-            linenum++;
-        }
-        else{
-            string += "\n";
-        }
-    }
-    return string;
-}
 
 
-function removeExtraline(content){
-    let x = true; // to check weather we have to remove line or not 
-    let string = "";
-    let contentArr = content.split("\n");
-    for(let i=0;i<contentArr.length;i++){
-        if(contentArr[i].length == 1 && x==false){
-            continue;
-        }
-        
-        if(contentArr[i].length > 1){
-            string += contentArr[i] + "\n";
-            x = true;
-        }
-        else if(contentArr[i].length == 1 && x == true){
-            string += contentArr[i] + "\n"
-            x = false;
+function  addSequencefornonempty(content){
+    let contentArr = content.split("\r\n");
+    let count = 1;
+    for(let i = 0;i<contentArr.length;i++){
+        if( contentArr[i]!=""){
+        contentArr[i]=count+" "+contentArr[i];
+        count ++;
+
         }
     }
-    return string;
+    return contentArr;
 }
+    function removeExtraline(fileData){
+        let contentArr = fileData.split("\r\n");
+        let data = [];
+        for(let i = 0;i<contentArr.length;i++){
+            if( contentArr[i]=="" && contentArr[i-1]==""){
+                contentArr[i]=null;
+    }
+    if( contentArr[i]=="" && contentArr[i-1]==null){
+        contentArr[i]=null;
+    }
+}
+    for(let i = 0;i<contentArr.length;i++){
+        if( contentArr[i]!=null){
+            data.push(contentArr[i]);
+        }
+    }
+    return data;
+}
+
 
 
 function replaceName(string,orignalword,newword){
